@@ -1,0 +1,208 @@
+{
+  "info": {
+    "_postman_id": "ce8796b8-9af4-445c-9625-ad5643857e31",
+    "name": "microsaving",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "29963407",
+    "_collection_link": "https://go.postman.co/collection/29963407-ce8796b8-9af4-445c-9625-ad5643857e31?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "transcation",
+      "item": [
+        {
+          "name": "parse",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "[\r\n    {\r\n        \"date\": \"2023-10-12 20:15:30\",\r\n        \"amount\": 250\r\n    },\r\n    {\r\n        \"date\": \"2023-02-28 15:49:20\",\r\n        \"amount\": 375\r\n    },\r\n    {\r\n        \"date\": \"2023-07-01 21:59:00\",\r\n        \"amount\": 620\r\n    },\r\n    {\r\n        \"date\": \"2023-12-17 08:09:45\",\r\n        \"amount\": 480\r\n    }\r\n]\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseurl}}/transactions/parse",
+              "host": [
+                "{{baseurl}}"
+              ],
+              "path": [
+                "transactions",
+                "parse"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "validator",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"wage\": 8000,\r\n    \"transactions\": [\r\n        {\r\n            \"date\": \"2023-01-15 10:30:00\",\r\n            \"amount\": 2000,\r\n            \"ceiling\": 300,\r\n            \"remanent\": 50\r\n        },\r\n        {\r\n            \"date\": \"2023-03-20 14:45:00\",\r\n            \"amount\": 3500,\r\n            \"ceiling\": 400,\r\n            \"remanent\": 70\r\n        },\r\n        {\r\n            \"date\": \"2023-06-10 09:15:00\",\r\n            \"amount\": 1500,\r\n            \"ceiling\": 200,\r\n            \"remanent\": 30\r\n        },\r\n        {\r\n            \"date\": \"2023-07-10 09:15:00\",\r\n            \"amount\": -250,\r\n            \"ceiling\": 200,\r\n            \"remanent\": 30\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseurl}}/transactions/validator",
+              "host": [
+                "{{baseurl}}"
+              ],
+              "path": [
+                "transactions",
+                "validator"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "filter",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"q\": [\r\n        {\r\n            \"fixed\": 0,\r\n            \"start\": \"2023-07-01 00:00:00\",\r\n            \"end\": \"2023-07-31 23:59:59\"\r\n        }\r\n    ],\r\n    \"p\": [\r\n        {\r\n            \"extra\": 30,\r\n            \"start\": \"2023-10-01 00:00:00\",\r\n            \"end\": \"2023-12-31 23:59:59\"\r\n        }\r\n    ],\r\n    \"k\": [\r\n        {\r\n            \"start\": \"2023-01-01 00:00:00\",\r\n            \"end\": \"2023-12-31 23:59:59\"\r\n        }\r\n    ],\r\n    \"wage\": 50000,\r\n    \"transactions\": [\r\n        {\r\n            \"date\": \"2023-02-28 15:49:20\",\r\n            \"amount\": 375\r\n        },\r\n        {\r\n            \"date\": \"2023-07-15 10:30:00\",\r\n            \"amount\": 620\r\n        },\r\n        {\r\n            \"date\": \"2023-10-12 20:15:30\",\r\n            \"amount\": 250\r\n        },\r\n        {\r\n            \"date\": \"2023-10-12 20:15:30\",\r\n            \"amount\": 250\r\n        },\r\n        {\r\n            \"date\": \"2023-12-17 08:09:45\",\r\n            \"amount\": -480\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseurl}}/transactions/filter",
+              "host": [
+                "{{baseurl}}"
+              ],
+              "path": [
+                "transactions",
+                "filter"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "performance",
+      "item": [
+        {
+          "name": "performance",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseurl}}/performance",
+              "host": [
+                "{{baseurl}}"
+              ],
+              "path": [
+                "performance"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "returns",
+      "item": [
+        {
+          "name": "nps",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"age\": 29,\r\n    \"wage\": 50000,\r\n    \"inflation\": 5.5,\r\n    \"q\": [\r\n        {\r\n            \"fixed\": 0,\r\n            \"start\": \"2023-07-01 00:00:00\",\r\n            \"end\": \"2023-07-31 23:59:59\"\r\n        }\r\n    ],\r\n    \"p\": [\r\n        {\r\n            \"extra\": 25,\r\n            \"start\": \"2023-10-01 08:00:00\",\r\n            \"end\": \"2023-12-31 19:59:59\"\r\n        }\r\n    ],\r\n    \"k\": [\r\n        {\r\n            \"start\": \"2023-01-01 00:00:00\",\r\n            \"end\": \"2023-12-31 23:59:59\"\r\n        },\r\n        {\r\n            \"start\": \"2023-03-01 00:00:00\",\r\n            \"end\": \"2023-11-31 23:59:59\"\r\n        }\r\n    ],\r\n    \"transactions\": [\r\n        {\r\n            \"date\": \"2023-02-28 15:49:20\",\r\n            \"amount\": 375\r\n        },\r\n        {\r\n            \"date\": \"2023-07-01 21:59:00\",\r\n            \"amount\": 620\r\n        },\r\n        {\r\n            \"date\": \"2023-10-12 20:15:30\",\r\n            \"amount\": 250\r\n        },\r\n        {\r\n            \"date\": \"2023-12-17 08:09:45\",\r\n            \"amount\": 480\r\n        },\r\n        {\r\n            \"date\": \"2023-12-17 08:09:45\",\r\n            \"amount\": -10\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseurl}}/returns/nps",
+              "host": [
+                "{{baseurl}}"
+              ],
+              "path": [
+                "returns",
+                "nps"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "index",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"age\": 29,\r\n    \"wage\": 50000,\r\n    \"inflation\": 5.5,\r\n    \"q\": [\r\n        {\r\n            \"fixed\": 0,\r\n            \"start\": \"2023-07-01 00:00:00\",\r\n            \"end\": \"2023-07-31 23:59:59\"\r\n        }\r\n    ],\r\n    \"p\": [\r\n        {\r\n            \"extra\": 25,\r\n            \"start\": \"2023-10-01 08:00:00\",\r\n            \"end\": \"2023-12-31 19:59:59\"\r\n        }\r\n    ],\r\n    \"k\": [\r\n        {\r\n            \"start\": \"2023-01-01 00:00:00\",\r\n            \"end\": \"2023-12-31 23:59:59\"\r\n        },\r\n        {\r\n            \"start\": \"2023-03-01 00:00:00\",\r\n            \"end\": \"2023-11-31 23:59:59\"\r\n        }\r\n    ],\r\n    \"transactions\": [\r\n        {\r\n            \"date\": \"2023-02-28 15:49:20\",\r\n            \"amount\": 375\r\n        },\r\n        {\r\n            \"date\": \"2023-07-01 21:59:00\",\r\n            \"amount\": 620\r\n        },\r\n        {\r\n            \"date\": \"2023-10-12 20:15:30\",\r\n            \"amount\": 250\r\n        },\r\n        {\r\n            \"date\": \"2023-12-17 08:09:45\",\r\n            \"amount\": 480\r\n        },\r\n        {\r\n            \"date\": \"2023-12-17 08:09:45\",\r\n            \"amount\": -10\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseurl}}/returns/index",
+              "host": [
+                "{{baseurl}}"
+              ],
+              "path": [
+                "returns",
+                "index"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseurl",
+      "value": ""
+    }
+  ]
+}

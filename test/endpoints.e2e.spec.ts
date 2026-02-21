@@ -13,7 +13,9 @@ describe('Endpoints (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
-    app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
+    app.useGlobalPipes(
+      new ValidationPipe({ transform: true, whitelist: true }),
+    );
     await app.init();
   });
 
@@ -204,8 +206,16 @@ describe('Endpoints (e2e)', () => {
     it('uses latest-start Q period when multiple match', async () => {
       const dto = {
         q: [
-          { fixed: 10, start: '2023-01-01 00:00:00', end: '2023-12-31 23:59:59' },
-          { fixed: 50, start: '2023-06-01 00:00:00', end: '2023-12-31 23:59:59' },
+          {
+            fixed: 10,
+            start: '2023-01-01 00:00:00',
+            end: '2023-12-31 23:59:59',
+          },
+          {
+            fixed: 50,
+            start: '2023-06-01 00:00:00',
+            end: '2023-12-31 23:59:59',
+          },
         ],
         p: [],
         k: [{ start: '2023-01-01 00:00:00', end: '2023-12-31 23:59:59' }],
@@ -215,14 +225,22 @@ describe('Endpoints (e2e)', () => {
         .post('/transactions/filter')
         .send(dto)
         .expect(201);
-      const v = res.body.valid.find((x: any) => x.date === '2023-07-10 10:00:00');
+      const v = res.body.valid.find(
+        (x: any) => x.date === '2023-07-10 10:00:00',
+      );
       expect(v.remanent).toBe(50);
     });
 
     it('treats P period end as inclusive', async () => {
       const dto = {
         q: [],
-        p: [{ extra: 25, start: '2023-01-01 00:00:00', end: '2023-01-31 23:59:59' }],
+        p: [
+          {
+            extra: 25,
+            start: '2023-01-01 00:00:00',
+            end: '2023-01-31 23:59:59',
+          },
+        ],
         k: [],
         transactions: [{ date: '2023-01-31 23:59:59', amount: 100 }],
       };
@@ -308,10 +326,11 @@ describe('Endpoints (e2e)', () => {
         expect(entry).toHaveProperty('taxBenefit');
         expect(typeof entry.taxBenefit).toBe('number');
       }
-      const someBenefit = body.savingsByDates.some((e: any) => e.taxBenefit > 0);
+      const someBenefit = body.savingsByDates.some(
+        (e: any) => e.taxBenefit > 0,
+      );
       expect(someBenefit).toBe(true);
     });
-
   });
   describe('/returns/index (POST)', () => {
     it('computes Index returns with zero tax benefit', async () => {

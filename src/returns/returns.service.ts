@@ -5,7 +5,7 @@ import { APP_CONSTANTS } from '../utils/app.constants';
 
 @Injectable()
 export class ReturnsService {
-  constructor(private readonly transactionsService: TransactionsService) { }
+  constructor(private readonly transactionsService: TransactionsService) {}
 
   private calculateYearsToRetirement(age: number): number {
     return age < 60 ? 60 - age : 5;

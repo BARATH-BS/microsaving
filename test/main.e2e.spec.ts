@@ -33,15 +33,17 @@ describe('main.ts bootstrap', () => {
         },
       };
     });
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
+
     require('../src/main');
-    await new Promise(resolve => setTimeout(resolve, 0));
+    await new Promise((resolve) => setTimeout(resolve, 0));
     expect(logSpy).toHaveBeenCalledWith('Server is running on port 6005');
     logSpy.mockRestore();
 
     expect(captured.adapter).toBeDefined();
     expect(captured.adapter.constructor?.name).toBe('FastifyAdapter');
-    expect(captured.app.setGlobalPrefix).toHaveBeenCalledWith('blackrock/challenge/v1');
+    expect(captured.app.setGlobalPrefix).toHaveBeenCalledWith(
+      'blackrock/challenge/v1',
+    );
     const pipeArg = captured.app.useGlobalPipes.mock.calls[0][0];
     expect(pipeArg?.constructor?.name).toBe('ValidationPipe');
   });
@@ -63,9 +65,9 @@ describe('main.ts bootstrap', () => {
         },
       };
     });
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
+
     require('../src/main');
-    await new Promise(resolve => setTimeout(resolve, 0));
+    await new Promise((resolve) => setTimeout(resolve, 0));
     expect(logSpy).toHaveBeenCalledWith('Server is running on port 5477');
     logSpy.mockRestore();
   });

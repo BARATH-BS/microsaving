@@ -6,4 +6,4 @@ import { PerformanceService } from './performance.service';
   controllers: [PerformanceController],
   providers: [PerformanceService],
 })
-export class PerformanceModule { }
+export class PerformanceModule {}

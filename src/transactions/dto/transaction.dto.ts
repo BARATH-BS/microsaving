@@ -1,15 +1,18 @@
-import { IsString, IsOptional } from 'class-validator';
+import { IsNumber, IsPositive, IsArray, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
+import { TransactionItemDto } from './transaction-item.dto';
 
+export class ValidatorRequestDto {
+    @IsNumber()
+    @IsPositive({ message: 'Wage must be a positive number' })
+    wage: number;
 
-
-export class ValidatorTransactionDto {
-    @IsString()
-    @IsOptional()
-    payload?: string;
+    @IsArray()
+    @ValidateNested({ each: true })
+    @Type(() => TransactionItemDto)
+    transactions: TransactionItemDto[];
 }
 
 export class FilterTransactionDto {
-    @IsString()
-    @IsOptional()
     payload?: string;
 }

@@ -1,6 +1,6 @@
 import { Body, Controller, Post, ParseArrayPipe } from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
-import { ValidatorTransactionDto, FilterTransactionDto } from './dto/transaction.dto';
+import { ValidatorRequestDto, FilterTransactionDto } from './dto/transaction.dto';
 import { ExpenseItemDto } from './dto/expense-item.dto';
 
 @Controller('transactions')
@@ -13,7 +13,7 @@ export class TransactionsController {
     }
 
     @Post('validator')
-    validator(@Body() dto: ValidatorTransactionDto) {
+    validator(@Body() dto: ValidatorRequestDto) {
         return this.transactionsService.validator(dto);
     }
 

@@ -6,6 +6,10 @@ export const APP_MESSAGES = {
             DATE_FORMAT: 'Date must be a valid datetime string',
             REQUIRED_DATE: 'Date is required',
             REQUIRED_AMOUNT: 'Amount is required'
+        },
+        VALIDATOR: {
+            NEGATIVE_AMOUNT: 'Negative amounts are not allowed',
+            EXCEEDS_WAGE: 'Amount exceeds the maximum allowed investment based on wage',
         }
     }
 }

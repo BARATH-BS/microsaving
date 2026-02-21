@@ -6,20 +6,23 @@ import { FilterRequestDto } from './dto/filter-request.dto';
 
 @Controller('transactions')
 export class TransactionsController {
-    constructor(private readonly transactionsService: TransactionsService) { }
+  constructor(private readonly transactionsService: TransactionsService) {}
 
-    @Post('parse')
-    parse(@Body(new ParseArrayPipe({ items: ExpenseItemDto })) expenses: ExpenseItemDto[]) {
-        return this.transactionsService.parse(expenses);
-    }
+  @Post('parse')
+  parse(
+    @Body(new ParseArrayPipe({ items: ExpenseItemDto }))
+    expenses: ExpenseItemDto[],
+  ) {
+    return this.transactionsService.parse(expenses);
+  }
 
-    @Post('validator')
-    validator(@Body() dto: ValidatorRequestDto) {
-        return this.transactionsService.validator(dto);
-    }
+  @Post('validator')
+  validator(@Body() dto: ValidatorRequestDto) {
+    return this.transactionsService.validator(dto);
+  }
 
-    @Post('filter')
-    filter(@Body() dto: FilterRequestDto) {
-        return this.transactionsService.filter(dto);
-    }
+  @Post('filter')
+  filter(@Body() dto: FilterRequestDto) {
+    return this.transactionsService.filter(dto);
+  }
 }

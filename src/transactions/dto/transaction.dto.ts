@@ -3,16 +3,16 @@ import { Type } from 'class-transformer';
 import { TransactionItemDto } from './transaction-item.dto';
 
 export class ValidatorRequestDto {
-    @IsNumber()
-    @IsPositive({ message: 'Wage must be a positive number' })
-    wage: number;
+  @IsNumber()
+  @IsPositive({ message: 'Wage must be a positive number' })
+  wage: number;
 
-    @IsArray()
-    @ValidateNested({ each: true })
-    @Type(() => TransactionItemDto)
-    transactions: TransactionItemDto[];
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => TransactionItemDto)
+  transactions: TransactionItemDto[];
 }
 
 export class FilterTransactionDto {
-    payload?: string;
+  payload?: string;
 }

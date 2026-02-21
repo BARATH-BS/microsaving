@@ -1,16 +1,16 @@
 export interface ValidTransaction {
-    date: string;
-    amount: number;
-    ceiling: number;
-    remanent: number;
+  date: string;
+  amount: number;
+  ceiling: number;
+  remanent: number;
 }
 
 export interface InvalidTransaction extends ValidTransaction {
-    message: string;
+  message: string;
 }
 
 export interface ValidatorResult {
-    valid: ValidTransaction[];
-    invalid: InvalidTransaction[];
-    duplicates: ValidTransaction[];
+  valid: ValidTransaction[];
+  invalid: InvalidTransaction[];
+  duplicates: ValidTransaction[];
 }

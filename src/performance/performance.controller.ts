@@ -3,10 +3,10 @@ import { PerformanceService } from './performance.service';
 
 @Controller('performance')
 export class PerformanceController {
-    constructor(private readonly performanceService: PerformanceService) { }
+  constructor(private readonly performanceService: PerformanceService) {}
 
-    @Get()
-    getPerformance() {
-        return this.performanceService.getPerformance();
-    }
+  @Get()
+  getPerformance() {
+    return this.performanceService.getPerformance();
+  }
 }

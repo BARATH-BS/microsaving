@@ -10,7 +10,12 @@ export const APP_MESSAGES = {
         VALIDATOR: {
             NEGATIVE_AMOUNT: 'Negative amounts are not allowed',
             EXCEEDS_WAGE: 'Amount exceeds the maximum allowed investment based on wage',
+        },
+        FILTER: {
+            NEGATIVE_AMOUNT: 'Negative amounts are not allowed',
+            DUPLICATE: 'Duplicate transaction',
         }
     }
 }
+
 

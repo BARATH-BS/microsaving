@@ -1,7 +1,8 @@
 import { Body, Controller, Post, ParseArrayPipe } from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
-import { ValidatorRequestDto, FilterTransactionDto } from './dto/transaction.dto';
+import { ValidatorRequestDto } from './dto/transaction.dto';
 import { ExpenseItemDto } from './dto/expense-item.dto';
+import { FilterRequestDto } from './dto/filter-request.dto';
 
 @Controller('transactions')
 export class TransactionsController {
@@ -18,7 +19,7 @@ export class TransactionsController {
     }
 
     @Post('filter')
-    filter(@Body() dto: FilterTransactionDto) {
+    filter(@Body() dto: FilterRequestDto) {
         return this.transactionsService.filter(dto);
     }
 }

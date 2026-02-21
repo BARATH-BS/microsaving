@@ -47,10 +47,8 @@ function upperBound(arr: number[], target: number): number {
 export class TransactionsService {
   parse(expenses: ExpenseItemDto[]): ParsedExpense[] {
     return expenses.map((expense) => {
-      const ceiling = parseFloat(
-        (Math.floor(expense.amount / 100) * 100 + 100).toFixed(2),
-      );
-      const remanent = parseFloat((ceiling - expense.amount).toFixed(2));
+      const ceiling = Math.floor(expense.amount / 100) * 100 + 100;
+      const remanent = Math.round((ceiling - expense.amount) * 100) / 100;
       return { date: expense.date, amount: expense.amount, ceiling, remanent };
     });
   }
@@ -59,7 +57,8 @@ export class TransactionsService {
     const { wage, transactions } = dto;
     const valid: ValidTransaction[] = [];
     const invalid: InvalidTransaction[] = [];
-    const seen = new Map<string, boolean>();
+    const seen = new Set<string>();
+    const dupSet = new Set<string>();
     const duplicates: ValidTransaction[] = [];
 
     for (const t of transactions) {
@@ -85,11 +84,12 @@ export class TransactionsService {
 
         const key = `${t.date}__${t.amount}`;
         if (seen.has(key)) {
-          if (!duplicates.some((d) => `${d.date}__${d.amount}` === key)) {
+          if (!dupSet.has(key)) {
+            dupSet.add(key);
             duplicates.push(item);
           }
         } else {
-          seen.set(key, true);
+          seen.add(key);
         }
       }
     }

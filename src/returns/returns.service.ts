@@ -5,7 +5,7 @@ import { APP_CONSTANTS } from '../utils/app.constants';
 
 @Injectable()
 export class ReturnsService {
-  constructor(private readonly transactionsService: TransactionsService) {}
+  constructor(private readonly transactionsService: TransactionsService) { }
 
   private calculateYearsToRetirement(age: number): number {
     return age < 60 ? 60 - age : 5;
@@ -108,17 +108,45 @@ export class ReturnsService {
       taxBenefit: number;
     }[] = [];
 
+    // Precalculate timestamps once and sort to allow O(log n) binary searches
+    const validTransactionsMs = validTransactions.map(t => ({
+      ...t,
+      dateMs: new Date(t.date).getTime()
+    })).sort((a, b) => a.dateMs - b.dateMs);
+
+    const upperBound = (arr: typeof validTransactionsMs, target: number) => {
+      let lo = 0, hi = arr.length;
+      while (lo < hi) {
+        const mid = (lo + hi) >>> 1;
+        if (arr[mid].dateMs <= target) lo = mid + 1;
+        else hi = mid;
+      }
+      return lo;
+    };
+
+    const lowerBound = (arr: typeof validTransactionsMs, target: number) => {
+      let lo = 0, hi = arr.length;
+      while (lo < hi) {
+        const mid = (lo + hi) >>> 1;
+        if (arr[mid].dateMs < target) lo = mid + 1;
+        else hi = mid;
+      }
+      return lo;
+    };
+
     for (const kPeriod of dto.k) {
       const kStartMs = new Date(kPeriod.start).getTime();
       const kEndMs = new Date(kPeriod.end).getTime();
 
-      // Find valid transactions in this k period
-      const kTrans = validTransactions.filter((t) => {
-        const tMs = new Date(t.date).getTime();
-        return tMs >= kStartMs && tMs <= kEndMs && t.inKPeriod;
-      });
+      let investedAmount = 0;
+      const lo = lowerBound(validTransactionsMs, kStartMs);
+      const hi = upperBound(validTransactionsMs, kEndMs);
 
-      const investedAmount = kTrans.reduce((sum, t) => sum + t.remanent, 0);
+      for (let i = lo; i < hi; i++) {
+        if (validTransactionsMs[i].inKPeriod) {
+          investedAmount += validTransactionsMs[i].remanent;
+        }
+      }
 
       // Calculate Compound Interest
       const futureValue = this.compoundInterest(

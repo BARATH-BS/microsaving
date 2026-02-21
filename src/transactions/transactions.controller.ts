@@ -1,14 +1,15 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, ParseArrayPipe } from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
-import { ParseTransactionDto, ValidatorTransactionDto, FilterTransactionDto } from './dto/transaction.dto';
+import { ValidatorTransactionDto, FilterTransactionDto } from './dto/transaction.dto';
+import { ExpenseItemDto } from './dto/expense-item.dto';
 
 @Controller('transactions')
 export class TransactionsController {
     constructor(private readonly transactionsService: TransactionsService) { }
 
     @Post('parse')
-    parse(@Body() dto: ParseTransactionDto) {
-        return this.transactionsService.parse(dto);
+    parse(@Body(new ParseArrayPipe({ items: ExpenseItemDto })) expenses: ExpenseItemDto[]) {
+        return this.transactionsService.parse(expenses);
     }
 
     @Post('validator')

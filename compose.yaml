@@ -1,0 +1,23 @@
+services:
+  microsaving:
+    # Build the image from the Dockerfile in the current directory
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: blk-hacking-ind-barath-bs
+    container_name: blk-hacking-ind-barath-bs
+    # Map host port 5477 → container port 5477
+    ports:
+      - "5477:5477"
+    environment:
+      NODE_ENV: production
+      PORT: 5477
+    # Restart the container automatically unless explicitly stopped
+    restart: unless-stopped
+    healthcheck:
+      # Verify the service is responding on the expected port
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:5477/blackrock/challenge/v1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s

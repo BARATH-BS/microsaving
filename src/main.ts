@@ -11,6 +11,6 @@ async function bootstrap() {
   app.setGlobalPrefix('blackrock/challenge/v1')
   app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
   console.log(`Server is running on port ${process.env.PORT ?? 5477}`);
-  await app.listen(process.env.PORT ?? 5477);
+  await app.listen(process.env.PORT ?? 5477, '0.0.0.0');
 }
 bootstrap();
